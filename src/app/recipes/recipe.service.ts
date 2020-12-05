@@ -8,23 +8,30 @@ import { Subject } from 'rxjs';
 export class RecipeService {
 	recipesChanged = new Subject<Recipe[]>();
 
-	private recipes: Recipe[] = [
-		new Recipe(
-			'Test Recipe',
-			'Very Tastey',
-			'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
-			[ new Ingredient('Recipe Item', 1), new Ingredient('Recipe Item 2', 2) ]
-		),
-		new Recipe('Tecipe', 'Very Tastey', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg', [
-			new Ingredient('Recipe Item 3', 10),
-			new Ingredient('Recipe Item 4', 2)
-		]),
-		new Recipe('Blecipe', 'Very Tastey', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg', [
-			new Ingredient('Recipe Item 5', 1),
-			new Ingredient('Recipe Item 6', 2)
-		])
-	];
+	// private recipes: Recipe[] = [
+	// 	new Recipe(
+	// 		'Test Recipe',
+	// 		'Very Tastey',
+	// 		'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
+	// 		[ new Ingredient('Recipe Item', 1), new Ingredient('Recipe Item 2', 2) ]
+	// 	),
+	// 	new Recipe('Tecipe', 'Very Tastey', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg', [
+	// 		new Ingredient('Recipe Item 3', 10),
+	// 		new Ingredient('Recipe Item 4', 2)
+	// 	]),
+	// 	new Recipe('Blecipe', 'Very Tastey', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg', [
+	// 		new Ingredient('Recipe Item 5', 1),
+	// 		new Ingredient('Recipe Item 6', 2)
+	// 	])
+	// ];
+	private recipes: Recipe[] = [];
+
 	constructor(private slService: ShoppingListService) {}
+
+	setRecipes(recipes: Recipe[]) {
+		this.recipes = recipes;
+		this.recipesChanged.next(this.recipes.slice());
+	}
 
 	getRecipes() {
 		return this.recipes.slice();
